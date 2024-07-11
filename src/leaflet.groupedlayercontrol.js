@@ -6,6 +6,7 @@ L.Control.GroupedLayers = L.Control.extend({
 
   options: {
     collapsed: true,
+    hideSingleBase: false,
     position: 'topright',
     autoZIndex: true,
     exclusiveGroups: [],
@@ -176,9 +177,15 @@ L.Control.GroupedLayers = L.Control.extend({
       this._addItem(obj);
       overlaysPresent = overlaysPresent || obj.overlay;
       baseLayersPresent = baseLayersPresent || !obj.overlay;
+      baseLayersCount += !obj.overlay ? 1 : 0;
     }
-
+// Hide base layers section if there's only one layer.
+		if (this.options.hideSingleBase) {
+			baseLayersPresent = baseLayersPresent && baseLayersCount > 1;
+			this._baseLayersList.style.display = baseLayersPresent ? '' : 'none';
+		}
     this._separator.style.display = overlaysPresent && baseLayersPresent ? '' : 'none';
+    return this;
   },
 
   _onLayerChange: function (e) {
