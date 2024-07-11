@@ -170,7 +170,7 @@ L.Control.GroupedLayers = L.Control.extend({
 
     var baseLayersPresent = false,
       overlaysPresent = false,
-      i, obj;
+      i, obj,  baseLayersCount = 0;
 
     for (var i = 0; i < this._layers.length; i++) {
       obj = this._layers[i];
